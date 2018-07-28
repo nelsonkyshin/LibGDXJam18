@@ -35,7 +35,7 @@ public class IcebergFactory {
         for (Iceberg berg: icebergs) {
             maxY = Math.max(maxY, berg.getPosition().y + berg.getHeight()/2);
         }
-        iceberg.getPosition().set(MathUtils.random(0.2f, 0.8f) * JamCamera.get().viewportWidth, maxY + iceberg.getHeight()/2 + MathUtils.random(50));
+        iceberg.getPosition().set(MathUtils.random(0.2f, 0.8f) * JamCamera.get().viewportWidth, maxY + iceberg.getHeight()/2 + MathUtils.random(-300, 100));
         return iceberg;
     }
 
@@ -48,6 +48,7 @@ public class IcebergFactory {
         iceberg.reset();
         iceberg.setOriginalWidth(1000);
         iceberg.getPosition().set(JamCamera.get().viewportWidth/2, PlayerController.PLAYER_INITIAL_Y);
+        iceberg.setConsumed();
         return iceberg;
     }
 }

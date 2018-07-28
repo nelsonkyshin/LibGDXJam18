@@ -11,7 +11,7 @@ import com.happygo.nksy.jam18.screen.JamCamera;
 
 public class PanningController {
 
-    private static final float PAN_DURATION = 1.5f;
+    private static final float PAN_DURATION = 1.2f;
     private EntityController entityController;
     private float durationRemaining;
     private boolean panning;

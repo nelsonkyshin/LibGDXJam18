@@ -35,7 +35,7 @@ public class EntityController {
         playerController.update();
         collisionController.update();
 
-        while (icebergs.size < 5) {
+        while (icebergs.size < 20) {
             icebergs.add(IcebergFactory.get().spawn(icebergs));
         }
     }
@@ -51,9 +51,9 @@ public class EntityController {
         panningController.reset();
         // clearing
         for (Iceberg iceberg: icebergs) {
-            icebergs.removeValue(iceberg, true);
             IcebergFactory.get().getPool().free(iceberg);
         }
+        icebergs.clear();
 
         // initial iceberg
         playerController.reset();

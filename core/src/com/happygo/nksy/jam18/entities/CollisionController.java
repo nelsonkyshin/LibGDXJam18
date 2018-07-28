@@ -16,7 +16,7 @@ public class CollisionController {
         }
         boolean onLand = false;
         for (Iceberg iceberg : entityController.icebergs) {
-            if (iceberg.getBounds().contains(entityController.player.getBottomMid())) {
+            if (iceberg.getBounds().contains(entityController.player.getMid())) {
                 if (!iceberg.isConsumed()) {
                     iceberg.setConsumed();
                     GameController.platforms++;

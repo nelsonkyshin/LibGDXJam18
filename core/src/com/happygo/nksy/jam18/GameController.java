@@ -1,5 +1,7 @@
 package com.happygo.nksy.jam18;
 
+import com.badlogic.gdx.math.MathUtils;
+
 public class GameController {
 
     private static float timeAlive;
@@ -25,7 +27,7 @@ public class GameController {
     }
 
     public static float getDifficultyMultiplier() {
-        return 1;
+        return MathUtils.clamp(1+platforms/10f, 1, 2f);
     }
 
     public static void setGameOver() {

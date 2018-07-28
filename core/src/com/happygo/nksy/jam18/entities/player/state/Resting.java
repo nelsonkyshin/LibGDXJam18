@@ -5,7 +5,7 @@ import com.happygo.nksy.jam18.entities.Player;
 
 public class Resting implements PlayerState {
 
-    private static float COOLDOWN = 0.5f;
+    private static float COOLDOWN = 0f;
     private float startTime;
 
     @Override
