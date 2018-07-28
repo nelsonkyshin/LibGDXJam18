@@ -8,7 +8,7 @@ import com.happygo.nksy.jam18.entities.Player;
 
 public class Jumping implements PlayerState {
 
-    private static float JUMP_DURATION = 0.8f;
+    private static float JUMP_DURATION = 0.4f;
     private float startTime;
     private Vector2 initial;
     private Vector2 temp;

@@ -20,7 +20,6 @@ public class Main extends ApplicationAdapter {
 
 	private static final float FRAME_RATE = 1/60f;
 
-	private GameScreen gameScreen;
 	private SpriteBatch batch;
 
 	@Override
@@ -37,7 +36,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public void update() {
-		dT = Math.max(FRAME_RATE, Gdx.graphics.getDeltaTime());
+		dT = Math.min(FRAME_RATE, Gdx.graphics.getDeltaTime());
 		gameTime += dT;
 		ScreenController.get().update();
 	}
