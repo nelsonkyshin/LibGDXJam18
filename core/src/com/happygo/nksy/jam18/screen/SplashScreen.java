@@ -34,15 +34,15 @@ public class SplashScreen implements IScreen {
         hgs.setScaling(Scaling.fit);
 
         Table table = new Table();
-        table.padBottom(100).padTop(100);
+        table.padBottom(Main.REFERENCE_UNIT).padTop(Main.REFERENCE_UNIT);
         table.setDebug(Main.DEBUG);
         table.setFillParent(true);
-        table.add(hgs).center().bottom().size(200, 200).expand();
-        table.row().padTop(20);
+        table.add(hgs).center().bottom().size(Main.REFERENCE_UNIT*5, Main.REFERENCE_UNIT*5).expand();
+        table.row().padTop(Main.REFERENCE_UNIT/2);
         table.add(presents);
         table.row().expand();
-        table.add(libgdx).bottom().size(100, 25);
-        table.row().padTop(20);
+        table.add(libgdx).bottom().size(Main.REFERENCE_UNIT, Main.REFERENCE_UNIT/4);
+        table.row().padTop(Main.REFERENCE_UNIT/4);
         table.add(gameJam);
 
         stage.addActor(table);

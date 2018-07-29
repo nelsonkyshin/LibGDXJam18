@@ -30,7 +30,7 @@ public class JamHUD {
     private TextButton title;
 
     public JamHUD() {
-        this.stage = new Stage(new ScalingViewport(Scaling.fill, Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3));
+        this.stage = new Stage(new ScalingViewport(Scaling.fill, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
         stage.getCamera().update();
         retry = new TextButton("Retry", Assets.skin());
         retry.addListener(new ChangeListener() {
@@ -62,13 +62,13 @@ public class JamHUD {
 
         score = new ScoreWidget("", Assets.skin());
 
-        table.padTop(50).padBottom(50);
+        table.padTop(Main.REFERENCE_UNIT).padBottom(Main.REFERENCE_UNIT);
         table.add(score).center().top().expand();
         table.row();
         table.add(tryAgain).center().expand();
-        table.row().padTop(20).width(100);
+        table.row().padTop(20).width(Main.REFERENCE_UNIT*5);
         table.add(retry);
-        table.row().padTop(5).width(100);
+        table.row().padTop(5).width(Main.REFERENCE_UNIT*5);
         table.add(title);
 
         stage.addActor(table);

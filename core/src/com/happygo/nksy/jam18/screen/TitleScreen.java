@@ -44,14 +44,14 @@ public class TitleScreen implements IScreen {
         info.setAlignment(Align.center);
 
         Table table = new Table();
-        table.padBottom(100).padTop(100);
+        table.padBottom(Main.REFERENCE_UNIT).padTop(Main.REFERENCE_UNIT);
         table.setDebug(Main.DEBUG);
         table.setFillParent(true);
 
         table.add(gameTitle).center().expand();
-        table.row().padTop(50);
+        table.row().padTop(Main.REFERENCE_UNIT/2);
         table.add(pressAny).center();
-        table.row().padTop(50);
+        table.row().padTop(Main.REFERENCE_UNIT/2);
         table.add(info).bottom();
 
         stage.addActor(table);
@@ -86,7 +86,7 @@ public class TitleScreen implements IScreen {
         Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Main.shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
         Main.shapeRenderer.setColor(Color.WHITE);
-        Main.shapeRenderer.circle(temp.x, temp.y, (float)(Math.sin(Main.gameTime)/8 + 0.875f) * 160);
+        Main.shapeRenderer.circle(temp.x, temp.y, (float)(Math.sin(Main.gameTime)/8 + 0.875f) * Main.REFERENCE_UNIT*5);
         Main.shapeRenderer.end();
         stage.getViewport().apply();
         stage.draw();

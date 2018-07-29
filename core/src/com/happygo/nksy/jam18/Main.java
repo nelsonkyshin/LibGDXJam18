@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.happygo.nksy.jam18.assets.Assets;
-import com.happygo.nksy.jam18.screen.GameScreen;
 import com.happygo.nksy.jam18.screen.SplashScreen;
 import com.happygo.nksy.jam18.screen.camera.JamCamera;
 import com.happygo.nksy.jam18.screen.ScreenController;
@@ -16,6 +15,7 @@ public class Main extends ApplicationAdapter {
 
 	public static final boolean DEBUG = !true;
 	public static ShapeRenderer shapeRenderer;
+	public static float REFERENCE_UNIT;
 	public static float gameTime = 0;
 	public static float dT;
 
@@ -28,6 +28,7 @@ public class Main extends ApplicationAdapter {
 		Assets.loadAll();
 		while (!Assets.isReady()) {} // synch wait
 		Assets.skin().getFont("font").getData().markupEnabled = true;
+		REFERENCE_UNIT = Gdx.graphics.getWidth()/20;
 
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
