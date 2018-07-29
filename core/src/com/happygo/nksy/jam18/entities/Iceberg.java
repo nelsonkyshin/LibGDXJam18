@@ -2,6 +2,7 @@ package com.happygo.nksy.jam18.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Interpolation;
@@ -10,17 +11,21 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.happygo.nksy.jam18.GameController;
 import com.happygo.nksy.jam18.Main;
-import com.happygo.nksy.jam18.screen.JamCamera;
+import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
 public class Iceberg extends AbstractEntity implements Pool.Poolable {
 
+    private float FLOAT_PERIOD = 1.5f;
     private float originalWidth;
     private float timeToDisappear;
     private float durationRemaining;
     private boolean consumed;
+    private Color shadow;
+    private float thickness;
 
     public Iceberg() {
         super(Vector2.Zero);
+        shadow = new Color(0, 0, 0, 0.2f);
     }
 
     @Override
@@ -36,6 +41,26 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
         setWidth(originalWidth * Interpolation.linear.apply(durationRemaining/timeToDisappear));
     }
 
+    public void renderEdge(SpriteBatch batch) {
+        Gdx.gl.glLineWidth(8);
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        float linear = Interpolation.circleOut.apply(((Main.gameTime + originalWidth) % FLOAT_PERIOD) / FLOAT_PERIOD);
+        float sin = MathUtils.sin(linear * MathUtils.PI);
+        Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        Main.shapeRenderer.setColor(isConsumed() ? Color.YELLOW : Color.WHITE);
+        Main.shapeRenderer.getColor().a = sin;
+        Main.shapeRenderer.circle(position.x, position.y, getWidth()/2 + linear * 60);
+        Main.shapeRenderer.end();
+    }
+
+    public void renderShadow(SpriteBatch batch) {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        Main.shapeRenderer.setColor(shadow);
+        Main.shapeRenderer.circle(position.x - Math.min(thickness, getWidth()/2), position.y, getWidth()/2);
+        Main.shapeRenderer.end();
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -46,10 +71,11 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
 
     @Override
     public void reset() {
-        timeToDisappear = MathUtils.random(8, 20)/ GameController.getDifficultyMultiplier();
+        timeToDisappear = MathUtils.random(5, 15)/ GameController.getDifficultyMultiplier();
         durationRemaining = timeToDisappear;
-        setOriginalWidth(MathUtils.random(300, 500));
+        setOriginalWidth(MathUtils.random(300f, 500f));
         position.set(MathUtils.random(-0.5f, 0.5f) * JamCamera.get().viewportWidth, 500);
+        thickness = MathUtils.random(10, 40);
         removeable = false;
         consumed = false;
     }

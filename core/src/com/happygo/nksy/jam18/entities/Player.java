@@ -25,10 +25,7 @@ public class Player extends AbstractEntity {
 
     @Override
     public void render(SpriteBatch batch) {
-        Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Main.shapeRenderer.setColor(GameController.isGameOver() ? Color.BLUE : Color.ORANGE);
-        Main.shapeRenderer.rect(position.x, position.y, getWidth(), getHeight());
-        Main.shapeRenderer.end();
+        // player state renders
     }
 
     public void setDestination(float x, float y) {

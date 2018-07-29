@@ -27,7 +27,7 @@ public class GameController {
     }
 
     public static float getDifficultyMultiplier() {
-        return MathUtils.clamp(1+platforms/10f, 1, 2f);
+        return MathUtils.clamp(1+platforms/5f, 1f, 2f);
     }
 
     public static void setGameOver() {

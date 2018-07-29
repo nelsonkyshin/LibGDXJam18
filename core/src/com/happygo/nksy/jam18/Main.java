@@ -8,7 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.happygo.nksy.jam18.assets.Assets;
 import com.happygo.nksy.jam18.screen.GameScreen;
-import com.happygo.nksy.jam18.screen.JamCamera;
+import com.happygo.nksy.jam18.screen.SplashScreen;
+import com.happygo.nksy.jam18.screen.camera.JamCamera;
 import com.happygo.nksy.jam18.screen.ScreenController;
 
 public class Main extends ApplicationAdapter {
@@ -32,7 +33,7 @@ public class Main extends ApplicationAdapter {
 		shapeRenderer.setAutoShapeType(true);
 		shapeRenderer.setColor(Color.WHITE);
 		batch = new SpriteBatch();
-		ScreenController.get().transitionTo(GameScreen.class);
+		ScreenController.get().transitionTo(SplashScreen.class);
 	}
 
 	public void update() {
@@ -44,7 +45,8 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void render() {
 		update();
-		Gdx.gl.glClearColor(0.1f, 0.6f, 0.8f, 1);
+		Color clear = ScreenController.get().getClearColor();
+		Gdx.gl.glClearColor(clear.r, clear.g, clear.b, clear.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.setProjectionMatrix(JamCamera.get().combined);
 		shapeRenderer.setProjectionMatrix(JamCamera.get().combined);

@@ -1,13 +1,10 @@
-package com.happygo.nksy.jam18.entities;
+package com.happygo.nksy.jam18.screen.camera;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
 import com.happygo.nksy.jam18.Main;
-import com.happygo.nksy.jam18.screen.JamCamera;
-
-/**
- * Created by Nelson on 28-Jul-18.
- */
+import com.happygo.nksy.jam18.entities.EntityController;
+import com.happygo.nksy.jam18.entities.Iceberg;
+import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
 public class PanningController {
 

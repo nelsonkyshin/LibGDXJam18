@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.happygo.nksy.jam18.GameController;
 import com.happygo.nksy.jam18.entities.factories.IcebergFactory;
+import com.happygo.nksy.jam18.screen.camera.PanningController;
 
 public class EntityController {
 
@@ -29,22 +30,30 @@ public class EntityController {
             }
             iceberg.update();
         }
-        if (panningController.pauseWhilePanning() || GameController.isGameOver()) {
-            return;
-        }
-        playerController.update();
+        playerController.update(panningController.pauseWhilePanning());
         collisionController.update();
 
-        while (icebergs.size < 20) {
+        while (icebergs.size < 20 && !GameController.isGameOver()) {
             icebergs.add(IcebergFactory.get().spawn(icebergs));
         }
     }
 
     public void render(SpriteBatch batch) {
+        if (GameController.isGameOver()) {
+            playerController.render(batch);
+        }
+        for (Iceberg iceberg : icebergs) {
+            iceberg.renderEdge(batch);
+        }
+        for (Iceberg iceberg : icebergs) {
+            iceberg.renderShadow(batch);
+        }
         for (Iceberg iceberg : icebergs) {
             iceberg.render(batch);
         }
-        playerController.render(batch);
+        if (!GameController.isGameOver()) {
+            playerController.render(batch);
+        }
     }
 
     public void reset() {

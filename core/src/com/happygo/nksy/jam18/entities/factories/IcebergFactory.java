@@ -3,9 +3,10 @@ package com.happygo.nksy.jam18.entities.factories;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pool;
+import com.happygo.nksy.jam18.GameController;
 import com.happygo.nksy.jam18.entities.Iceberg;
 import com.happygo.nksy.jam18.entities.PlayerController;
-import com.happygo.nksy.jam18.screen.JamCamera;
+import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
 public class IcebergFactory {
 
@@ -35,7 +36,7 @@ public class IcebergFactory {
         for (Iceberg berg: icebergs) {
             maxY = Math.max(maxY, berg.getPosition().y + berg.getHeight()/2);
         }
-        iceberg.getPosition().set(MathUtils.random(0.2f, 0.8f) * JamCamera.get().viewportWidth, maxY + iceberg.getHeight()/2 + MathUtils.random(-300, 100));
+        iceberg.getPosition().set(MathUtils.random(0.2f, 0.8f) * JamCamera.get().viewportWidth, maxY + iceberg.getHeight()/2 + MathUtils.random(-400, 200) / GameController.getDifficultyMultiplier());
         return iceberg;
     }
 

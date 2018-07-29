@@ -1,6 +1,7 @@
 package com.happygo.nksy.jam18.screen;
 
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public interface IScreen {
@@ -14,6 +15,8 @@ public interface IScreen {
     void update();
 
     void dispose();
+
+    Color getClearColor();
 
     InputMultiplexer getInputMultiplexer();
 }

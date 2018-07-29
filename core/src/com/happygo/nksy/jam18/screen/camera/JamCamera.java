@@ -1,8 +1,6 @@
-package com.happygo.nksy.jam18.screen;
+package com.happygo.nksy.jam18.screen.camera;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.happygo.nksy.jam18.entities.Iceberg;

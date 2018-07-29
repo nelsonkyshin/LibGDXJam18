@@ -1,9 +1,11 @@
 package com.happygo.nksy.jam18.entities.player.state;
 
+import com.happygo.nksy.jam18.AudioManager;
 import com.happygo.nksy.jam18.Main;
+import com.happygo.nksy.jam18.assets.Assets;
 import com.happygo.nksy.jam18.entities.Player;
 
-public class Resting implements PlayerState {
+public class Resting extends PlayerState {
 
     private static float COOLDOWN = 0f;
     private float startTime;
@@ -11,11 +13,7 @@ public class Resting implements PlayerState {
     @Override
     public void enterState(Player entity) {
         startTime = Main.gameTime;
-    }
-
-    @Override
-    public void actUpon(Player entity) {
-
+        super.enterState(entity);
     }
 
     @Override

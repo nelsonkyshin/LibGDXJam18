@@ -1,18 +1,15 @@
 package com.happygo.nksy.jam18.entities;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.happygo.nksy.jam18.GameController;
-import com.happygo.nksy.jam18.Main;
+import com.happygo.nksy.jam18.entities.player.state.Dead;
 import com.happygo.nksy.jam18.entities.player.state.Jumping;
 import com.happygo.nksy.jam18.entities.player.state.PlayerState;
 import com.happygo.nksy.jam18.entities.player.state.Resting;
 import com.happygo.nksy.jam18.entities.player.state.Standing;
-import com.happygo.nksy.jam18.screen.JamCamera;
+import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
 public class PlayerController {
 
@@ -22,6 +19,7 @@ public class PlayerController {
     private static PlayerState jumping = new Jumping();
     private static PlayerState standing = new Standing();
     private static PlayerState resting = new Resting();
+    private static PlayerState dead = new Dead();
 
     private Vector2 temp;
     private Player player;
@@ -31,10 +29,6 @@ public class PlayerController {
         this.player = player;
         this.temp = new Vector2();
         reset();
-    }
-
-    public void jumpTo(Vector2 position) {
-        jumpTo(position.x, position.y);
     }
 
     public void jumpTo(float x, float y) {
@@ -49,12 +43,13 @@ public class PlayerController {
         }
     }
 
-    public void update() {
+    public void update(boolean panning) {
+        playerState.actUpon(player);
         if (GameController.isGameOver()) {
+            changeState(dead);
             return;
         }
-        playerState.actUpon(player);
-        if (playerState.isComplete()) {
+        if (playerState.isComplete() && !panning) {
             if (jumping.equals(playerState)) {
                 changeState(resting);
             }
@@ -65,7 +60,7 @@ public class PlayerController {
     }
 
     public void render(SpriteBatch batch) {
-        player.render(batch);
+        playerState.render(player);
         if (GameController.isGameOver()) {
             return;
         }
@@ -78,6 +73,9 @@ public class PlayerController {
     }
 
     public void changeState(PlayerState nextState) {
+        if (nextState != null && nextState.equals(playerState)) {
+            return;
+        }
         if (playerState != null) {
             playerState.exitState(player);
         }
