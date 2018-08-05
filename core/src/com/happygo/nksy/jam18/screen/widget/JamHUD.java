@@ -1,6 +1,5 @@
 package com.happygo.nksy.jam18.screen.widget;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -30,7 +29,7 @@ public class JamHUD {
     private TextButton title;
 
     public JamHUD() {
-        this.stage = new Stage(new ScalingViewport(Scaling.fill, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+        this.stage = new Stage(new ScalingViewport(Scaling.fill, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT*10));
         stage.getCamera().update();
         retry = new TextButton("Retry", Assets.skin());
         retry.addListener(new ChangeListener() {
@@ -62,13 +61,13 @@ public class JamHUD {
 
         score = new ScoreWidget("", Assets.skin());
 
-        table.padTop(Main.REFERENCE_UNIT).padBottom(Main.REFERENCE_UNIT);
+        table.pad(Main.REFERENCE_WIDTH);
         table.add(score).center().top().expand();
         table.row();
         table.add(tryAgain).center().expand();
-        table.row().padTop(20).width(Main.REFERENCE_UNIT*5);
+        table.row().padTop(20).width(Main.REFERENCE_WIDTH *5);
         table.add(retry);
-        table.row().padTop(5).width(Main.REFERENCE_UNIT*5);
+        table.row().padTop(5).width(Main.REFERENCE_WIDTH *5);
         table.add(title);
 
         stage.addActor(table);

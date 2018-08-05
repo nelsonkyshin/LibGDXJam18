@@ -1,16 +1,13 @@
 package com.happygo.nksy.jam18.screen;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,7 +27,7 @@ public class TitleScreen implements IScreen {
     private final Vector2 temp;
 
     public TitleScreen() {
-        stage = new Stage(new ScalingViewport(Scaling.fill, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+        stage = new Stage(new ScalingViewport(Scaling.fill, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT *10));
         inputMultiplexer = new InputMultiplexer(stage);
         clearColor = new Color(0.1f, 0.6f, 0.8f, 1);
         temp = new Vector2();
@@ -42,16 +39,17 @@ public class TitleScreen implements IScreen {
         pressAny.addAction(Actions.repeat(900000, Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f))));
         Label info = new Label("www.nelsonyiap.com\nnelson.yiap@gmail.com", Assets.skin());
         info.setAlignment(Align.center);
+        info.setFontScale(0.5f);
 
         Table table = new Table();
-        table.padBottom(Main.REFERENCE_UNIT).padTop(Main.REFERENCE_UNIT);
+        table.padBottom(Main.REFERENCE_WIDTH).padTop(Main.REFERENCE_WIDTH);
         table.setDebug(Main.DEBUG);
         table.setFillParent(true);
 
         table.add(gameTitle).center().expand();
-        table.row().padTop(Main.REFERENCE_UNIT/2);
+        table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(pressAny).center();
-        table.row().padTop(Main.REFERENCE_UNIT/2);
+        table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(info).bottom();
 
         stage.addActor(table);
@@ -86,7 +84,7 @@ public class TitleScreen implements IScreen {
         Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Main.shapeRenderer.setProjectionMatrix(stage.getCamera().combined);
         Main.shapeRenderer.setColor(Color.WHITE);
-        Main.shapeRenderer.circle(temp.x, temp.y, (float)(Math.sin(Main.gameTime)/8 + 0.875f) * Main.REFERENCE_UNIT*5);
+        Main.shapeRenderer.circle(temp.x, temp.y, (float)(Math.sin(Main.gameTime)/8 + 0.875f) * Main.REFERENCE_WIDTH * 5);
         Main.shapeRenderer.end();
         stage.getViewport().apply();
         stage.draw();
