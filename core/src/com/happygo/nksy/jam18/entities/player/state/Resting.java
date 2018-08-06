@@ -1,8 +1,6 @@
 package com.happygo.nksy.jam18.entities.player.state;
 
-import com.happygo.nksy.jam18.AudioManager;
 import com.happygo.nksy.jam18.Main;
-import com.happygo.nksy.jam18.assets.Assets;
 import com.happygo.nksy.jam18.entities.Player;
 
 public class Resting extends PlayerState {

@@ -1,6 +1,5 @@
 package com.happygo.nksy.jam18.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.happygo.nksy.jam18.GameController;
@@ -13,9 +12,8 @@ import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
 public class PlayerController {
 
-    private static final Color RANGE_COLOR = new Color(0, 0.5f, 0.1f, 0.1f);
     public static float PLAYER_INITIAL_Y = 80;
-    public static float MAX_JUMP_LENGTH = 10000;//Gdx.graphics.getHeight()*2/5;
+    public static float MAX_JUMP_LENGTH = 10000;
     private static PlayerState jumping = new Jumping();
     private static PlayerState standing = new Standing();
     private static PlayerState resting = new Resting();
@@ -85,6 +83,7 @@ public class PlayerController {
 
     public void reset() {
         player.getPosition().set(JamCamera.get().viewportWidth/2 - player.getWidth()/2, PLAYER_INITIAL_Y);
+        playerState = null;
         changeState(standing);
     }
 

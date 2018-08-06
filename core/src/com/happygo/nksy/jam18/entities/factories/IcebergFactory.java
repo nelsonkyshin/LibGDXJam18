@@ -50,6 +50,7 @@ public class IcebergFactory {
         iceberg.setOriginalWidth(1000);
         iceberg.getPosition().set(JamCamera.get().viewportWidth/2, PlayerController.PLAYER_INITIAL_Y);
         iceberg.setConsumed();
+        iceberg.setConsumedTime(-100);
         return iceberg;
     }
 }

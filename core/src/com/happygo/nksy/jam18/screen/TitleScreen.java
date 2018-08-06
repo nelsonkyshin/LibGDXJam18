@@ -22,35 +22,29 @@ public class TitleScreen implements IScreen {
 
     private final Stage stage;
     private final InputMultiplexer inputMultiplexer;
-    private final Color clearColor;
     private final Label gameTitle;
+    private final Label pressAny;
     private final Vector2 temp;
 
     public TitleScreen() {
-        stage = new Stage(new ScalingViewport(Scaling.fill, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT *10));
+        stage = new Stage(new ScalingViewport(Scaling.stretch, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT *10));
         inputMultiplexer = new InputMultiplexer(stage);
-        clearColor = new Color(0.1f, 0.6f, 0.8f, 1);
         temp = new Vector2();
 
-        gameTitle = new Label("[#"+clearColor.toString()+"]ICEBERGS", Assets.skin());
+        gameTitle = new Label("ICEBERGS", Assets.skin());
         gameTitle.setFontScale(2);
         gameTitle.setAlignment(Align.center);
-        Label pressAny = new Label("Press any key", Assets.skin());
-        pressAny.addAction(Actions.repeat(900000, Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f))));
-        Label info = new Label("www.nelsonyiap.com\nnelson.yiap@gmail.com", Assets.skin());
-        info.setAlignment(Align.center);
-        info.setFontScale(0.5f);
+        pressAny = new Label(Main.isMobile() ? "Tap to begin" : "Press any key", Assets.skin());
 
         Table table = new Table();
-        table.padBottom(Main.REFERENCE_WIDTH).padTop(Main.REFERENCE_WIDTH);
+        table.padBottom(Main.REFERENCE_HEIGHT).padTop(Main.REFERENCE_HEIGHT);
         table.setDebug(Main.DEBUG);
         table.setFillParent(true);
 
         table.add(gameTitle).center().expand();
         table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(pressAny).center();
-        table.row().padTop(Main.REFERENCE_WIDTH /2);
-        table.add(info).bottom();
+        table.row().padTop(Main.REFERENCE_WIDTH /2).padBottom(20);
 
         stage.addActor(table);
         stage.addListener(new ClickListener() {
@@ -75,7 +69,12 @@ public class TitleScreen implements IScreen {
 
     @Override
     public void onEnter() {
+        Main.rerollColor();
         AudioManager.playMusic(Assets.MUSIC_ICE);
+        gameTitle.setColor(Main.darkerColor);
+        pressAny.setColor(Main.darkerColor);
+        pressAny.clearActions();
+        pressAny.addAction(Actions.repeat(900000, Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f))));
     }
 
     @Override
@@ -103,10 +102,6 @@ public class TitleScreen implements IScreen {
 
     @Override
     public Color getClearColor() {
-        return clearColor;
-    }
-
-    public void reset() {
-
+        return Main.waterColor;
     }
 }

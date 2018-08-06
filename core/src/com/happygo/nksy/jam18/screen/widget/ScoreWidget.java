@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.happygo.nksy.jam18.GameController;
+import com.happygo.nksy.jam18.Main;
 
 public class ScoreWidget extends Group {
 
@@ -17,7 +18,6 @@ public class ScoreWidget extends Group {
     public ScoreWidget(CharSequence text, Skin skin) {
         super();
         label = new Label(text, skin);
-        label.setColor(Color.BLACK);
         label.setFontScale(2);
         label.setAlignment(Align.center);
         addActor(label);
@@ -38,6 +38,7 @@ public class ScoreWidget extends Group {
 
     public void reset() {
         previousScore = 0;
+        label.setColor(Main.darkerColor);
         label.setText(String.valueOf(0));
     }
 }

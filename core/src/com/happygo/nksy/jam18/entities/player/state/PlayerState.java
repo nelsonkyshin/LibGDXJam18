@@ -16,13 +16,14 @@ public abstract class PlayerState {
     protected Rectangle shadowBounds;
 
     public PlayerState() {
-        color = new Color(Color.ORANGE);
+        color = new Color(Main.leadColor);
         shadow = new Color(0, 0, 0, 0.2f);
         drawBounds = new Rectangle();
         shadowBounds = new Rectangle();
     }
 
     public void enterState(Player entity) {
+        color.set(Main.leadColor);
         actUpon(entity);
     }
 

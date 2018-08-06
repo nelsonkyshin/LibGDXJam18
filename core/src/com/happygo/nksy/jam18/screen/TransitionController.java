@@ -8,7 +8,7 @@ import com.happygo.nksy.jam18.Main;
 
 public class TransitionController {
 
-    private static float TRANSITION_DURATION = 0.4f;
+    private static float TRANSITION_DURATION = 0.2f;
     private float transitionElapsed = Float.MAX_VALUE;
     private Class<? extends IScreen> clazz;
     private boolean first;

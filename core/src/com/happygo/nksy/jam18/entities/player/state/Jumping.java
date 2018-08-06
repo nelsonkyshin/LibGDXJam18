@@ -31,6 +31,7 @@ public class Jumping extends PlayerState {
 
     @Override
     public void enterState(Player entity) {
+        color.set(Main.leadColor);
         startTime = Main.gameTime;
         initial.set(entity.getPosition());
         jumpLength = temp.set(entity.getDestination()).sub(initial).len();

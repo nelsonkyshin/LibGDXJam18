@@ -1,11 +1,7 @@
 package com.happygo.nksy.jam18.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.happygo.nksy.jam18.GameController;
-import com.happygo.nksy.jam18.Main;
 
 public class Player extends AbstractEntity {
 

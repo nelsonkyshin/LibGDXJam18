@@ -19,24 +19,19 @@ public class Dead extends PlayerState {
     public void enterState(Player entity) {
         super.enterState(entity);
         startTime = Main.gameTime;
-        color.set(Color.ORANGE);
+        color.set(Main.leadColor);
         AudioManager.playSfx(Assets.SFX_SPLASH);
     }
 
     @Override
     public void actUpon(Player entity) {
         super.actUpon(entity);
-        color.lerp(Color.BLUE, (Main.gameTime-startTime)/DURATION);
+        color.lerp(Main.darkerColor, (Main.gameTime-startTime)/DURATION);
     }
 
     @Override
     public void exitState(Player entity) {
 
-    }
-
-    @Override
-    public void render(Player player) {
-        super.render(player);
     }
 
     @Override

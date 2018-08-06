@@ -51,7 +51,7 @@ public class JamHUD {
             }
         });
 
-        tryAgain = new Label("[BLACK]Game Over!", Assets.skin());
+        tryAgain = new Label("Game Over", Assets.skin());
         tryAgain.setAlignment(Align.center);
         tryAgain.setFontScale(1.5f);
 
@@ -98,5 +98,6 @@ public class JamHUD {
 
     public void reset() {
         score.reset();
+        tryAgain.setColor(Main.darkerColor);
     }
 }

@@ -23,7 +23,7 @@ public class SplashScreen implements IScreen {
     private float timeTaken;
 
     public SplashScreen() {
-        stage = new Stage(new ScalingViewport(Scaling.fill, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
+        stage = new Stage(new ScalingViewport(Scaling.stretch, Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2));
         inputMultiplexer = new InputMultiplexer(stage);
 
         Label presents = new Label("[BLACK]proudly presents", Assets.skin());

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.happygo.nksy.jam18.GameController;
+import com.happygo.nksy.jam18.Main;
 import com.happygo.nksy.jam18.entities.EntityController;
 import com.happygo.nksy.jam18.input.DesktopController;
 import com.happygo.nksy.jam18.input.GameInputProcessor;
@@ -17,7 +18,6 @@ public class GameScreen implements IScreen {
     private final EntityController controller;
     private final JamHUD hud;
     private final InputMultiplexer inputMultiplexer;
-    private Color clearColor = new Color(0.1f, 0.6f, 0.8f, 1);
 
     public GameScreen() {
         controller = new EntityController();
@@ -68,10 +68,11 @@ public class GameScreen implements IScreen {
 
     @Override
     public Color getClearColor() {
-        return clearColor;
+        return Main.waterColor;
     }
 
     public void reset() {
+        Main.rerollColor();
         controller.reset();
         GameController.reset();
         hud.reset();
