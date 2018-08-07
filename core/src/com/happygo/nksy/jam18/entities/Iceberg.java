@@ -16,12 +16,12 @@ import com.happygo.nksy.jam18.screen.camera.JamCamera;
 public class Iceberg extends AbstractEntity implements Pool.Poolable {
 
     private float FLOAT_PERIOD = 1.5f;
-    private float PULSE_PERIOD = 0.1f;
     private float originalWidth;
     private float timeToDisappear;
     private float durationRemaining;
-    private float consumedTime;
     private boolean consumed;
+    private boolean cannotBeFurtherConsumed;
+    private int nConsumed;
     private Color shadow;
     private float thickness;
 
@@ -41,15 +41,6 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
         }
         durationRemaining -= Main.dT;
         setWidth(originalWidth * Interpolation.linear.apply(durationRemaining/timeToDisappear));
-    }
-
-    public void renderPulse(SpriteBatch batch) {
-        Gdx.gl.glEnable(GL20.GL_BLEND);
-        float interp = Interpolation.exp10Out.apply((Main.gameTime - consumedTime)/ PULSE_PERIOD);
-        Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Main.shapeRenderer.setColor(Main.lighterColor);
-        Main.shapeRenderer.circle(position.x, position.y, getWidth()/2 * interp);
-        Main.shapeRenderer.end();
     }
 
     public void renderEdge(SpriteBatch batch) {
@@ -74,14 +65,10 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
 
     @Override
     public void render(SpriteBatch batch) {
-        boolean pulsing = Main.gameTime - consumedTime <= PULSE_PERIOD;
         Main.shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Main.shapeRenderer.setColor(isConsumed() && !pulsing ? Main.lighterColor : Color.WHITE);
+        Main.shapeRenderer.setColor(isConsumed() ? Main.lighterColor : Color.WHITE);
         Main.shapeRenderer.circle(position.x, position.y, getWidth()/2);
         Main.shapeRenderer.end();
-        if (pulsing) {
-            renderPulse(batch);
-        }
     }
 
     @Override
@@ -93,19 +80,25 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
         thickness = MathUtils.random(10, 60);
         removeable = false;
         consumed = false;
+        nConsumed = 0;
+        cannotBeFurtherConsumed = false;
     }
 
     public boolean isConsumed() {
         return consumed;
     }
 
-    public void setConsumed() {
+    public boolean setConsumed() {
+        if (cannotBeFurtherConsumed) {
+            return false;
+        }
         this.consumed = true;
-        setConsumedTime(Main.gameTime);
+        nConsumed++;
+        return true;
     }
 
-    public void setConsumedTime(float time) {
-        this.consumedTime = time;
+    public int getnConsumed() {
+        return nConsumed;
     }
 
     public void setOriginalWidth(float width) {
@@ -117,5 +110,9 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
     public void setWidth(float width) {
         super.setWidth(width);
         setHeight(width);
+    }
+
+    public void setCannotBeFurtherConsumed() {
+        cannotBeFurtherConsumed = true;
     }
 }

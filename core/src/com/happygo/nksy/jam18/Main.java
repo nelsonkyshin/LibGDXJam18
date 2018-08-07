@@ -50,7 +50,8 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public static boolean isMobile() {
-		return Gdx.app.getType().equals(Application.ApplicationType.Android) || Gdx.app.getType().equals(Application.ApplicationType.iOS);
+		return Gdx.app.getType().equals(Application.ApplicationType.Android)
+				|| Gdx.app.getType().equals(Application.ApplicationType.iOS);
 	}
 
 	public void update() {
@@ -80,7 +81,7 @@ public class Main extends ApplicationAdapter {
 	}
 
 	public static void rerollColor() {
-		leadColor.set(MathUtils.random(0.4f, 0.9f), MathUtils.random(0.4f, 0.9f), MathUtils.random(0.3f, 0.5f), 1);
+		leadColor.set(MathUtils.random(0.3f, 0.9f), MathUtils.random(0.3f, 0.9f), MathUtils.random(0.3f, 0.7f), 1);
 		waterColor.set(leadColor).mul(MathUtils.random(1.08f, 1.12f));
 		waterColor.b += MathUtils.random(0.15f, 0.3f);
 		waterColor.a = 1;

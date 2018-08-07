@@ -1,6 +1,5 @@
 package com.happygo.nksy.jam18.screen.widget;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -19,7 +18,8 @@ public class ScoreWidget extends Group {
         super();
         label = new Label(text, skin);
         label.setFontScale(2);
-        label.setAlignment(Align.center);
+        label.setAlignment(Align.bottom);
+        label.setOrigin(Align.center);
         addActor(label);
         setOrigin(Align.center);
         previousScore = 0;
@@ -31,7 +31,7 @@ public class ScoreWidget extends Group {
         if (previousScore != GameController.platforms) {
             clearActions();
             label.setText(String.valueOf(GameController.platforms));
-            addAction(Actions.sequence(Actions.scaleBy(1.3f, 1.3f), Actions.scaleTo(1, 1, SCALE_DURATION)));
+            addAction(Actions.sequence(Actions.scaleBy(1.05f, 1.05f), Actions.scaleTo(1, 1, SCALE_DURATION)));
             previousScore = GameController.platforms;
         }
     }

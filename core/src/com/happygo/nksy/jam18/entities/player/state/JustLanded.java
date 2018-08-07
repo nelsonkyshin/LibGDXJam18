@@ -1,17 +1,14 @@
 package com.happygo.nksy.jam18.entities.player.state;
 
-import com.happygo.nksy.jam18.Main;
+import com.happygo.nksy.jam18.GameController;
 import com.happygo.nksy.jam18.entities.Player;
 
-public class Resting extends PlayerState {
-
-    private static float COOLDOWN = 0f;
-    private float startTime;
+public class JustLanded extends PlayerState {
 
     @Override
     public void enterState(Player entity) {
-        startTime = Main.gameTime;
         super.enterState(entity);
+        GameController.setJustLanded(true);
     }
 
     @Override
@@ -21,6 +18,6 @@ public class Resting extends PlayerState {
 
     @Override
     public boolean isComplete() {
-        return Main.gameTime - startTime > COOLDOWN;
+        return true;
     }
 }

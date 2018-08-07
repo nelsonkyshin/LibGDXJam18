@@ -1,12 +1,15 @@
 package com.happygo.nksy.jam18;
 
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.Array;
 
 public class GameController {
 
     private static float timeAlive;
     private static boolean gameOver;
+    private static boolean justLanded;
     public static int platforms;
+    public static Array<String> bonusQueue = new Array<String>();
 
     public static boolean isGameOver() {
         return gameOver;
@@ -15,7 +18,9 @@ public class GameController {
     public static void reset() {
         timeAlive = 0;
         gameOver = false;
+        justLanded = false;
         platforms = 0;
+        bonusQueue.clear();
     }
 
     public static void update() {
@@ -32,5 +37,13 @@ public class GameController {
 
     public static void setGameOver() {
         gameOver = true;
+    }
+
+    public static void setJustLanded(boolean landed) {
+        justLanded = landed;
+    }
+
+    public static boolean isJustLanded() {
+        return justLanded;
     }
 }

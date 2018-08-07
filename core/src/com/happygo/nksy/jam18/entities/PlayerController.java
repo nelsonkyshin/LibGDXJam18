@@ -6,7 +6,7 @@ import com.happygo.nksy.jam18.GameController;
 import com.happygo.nksy.jam18.entities.player.state.Dead;
 import com.happygo.nksy.jam18.entities.player.state.Jumping;
 import com.happygo.nksy.jam18.entities.player.state.PlayerState;
-import com.happygo.nksy.jam18.entities.player.state.Resting;
+import com.happygo.nksy.jam18.entities.player.state.JustLanded;
 import com.happygo.nksy.jam18.entities.player.state.Standing;
 import com.happygo.nksy.jam18.screen.camera.JamCamera;
 
@@ -16,7 +16,7 @@ public class PlayerController {
     public static float MAX_JUMP_LENGTH = 10000;
     private static PlayerState jumping = new Jumping();
     private static PlayerState standing = new Standing();
-    private static PlayerState resting = new Resting();
+    private static PlayerState justLanded = new JustLanded();
     private static PlayerState dead = new Dead();
 
     private Vector2 temp;
@@ -49,9 +49,9 @@ public class PlayerController {
         }
         if (playerState.isComplete() && !panning) {
             if (jumping.equals(playerState)) {
-                changeState(resting);
+                changeState(justLanded);
             }
-            else if (resting.equals(playerState)) {
+            else if (justLanded.equals(playerState)) {
                 changeState(standing);
             }
         }
@@ -97,5 +97,9 @@ public class PlayerController {
 
     public boolean isJumping() {
         return jumping.equals(playerState);
+    }
+
+    public boolean isJustLanded() {
+        return justLanded.equals(playerState);
     }
 }
