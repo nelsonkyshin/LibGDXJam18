@@ -27,7 +27,9 @@ public class PanningController {
                 durationRemaining = PAN_DURATION;
             }
             float amount = entityController.playerController.getAmountOff();
-            JamCamera.get().setY(amount * Interpolation.circle.apply(1-(durationRemaining/PAN_DURATION)));
+            float interpolated = amount * Interpolation.circle.apply(1-(durationRemaining/PAN_DURATION));
+            JamCamera.get().setY(interpolated);
+            JamCamera.get().setYOffset(interpolated);
 
             if (durationRemaining <= 0) {
                 // adjust everything

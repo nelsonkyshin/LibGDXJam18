@@ -1,5 +1,7 @@
 package com.happygo.nksy.jam18.assets;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -10,6 +12,7 @@ public class Assets {
 
     private static final AssetManager manager = new AssetManager();
 
+    public static final String PREFERENCES = "jam18";
     public static final String SKIN = "skin/terra-mother-ui.json";
     public static final String LIBGDX = "images/libgdx.png";
     public static final String HGS = "images/hgs_logo.png";
@@ -47,6 +50,9 @@ public class Assets {
         return manager.get(string, Texture.class);
     }
 
+    public static Preferences prefs() {
+        return Gdx.app.getPreferences(PREFERENCES);
+    }
 
     public static boolean isReady() {
         return manager.update();

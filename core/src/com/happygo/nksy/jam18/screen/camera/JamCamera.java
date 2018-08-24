@@ -9,6 +9,7 @@ public class JamCamera extends OrthographicCamera {
 
     private static JamCamera instance;
     private Rectangle camBounds;
+    private float yOffset;
 
     private JamCamera() {
         super(780, 1200);
@@ -24,12 +25,23 @@ public class JamCamera extends OrthographicCamera {
     }
 
     public boolean isVisible(Iceberg iceberg) {
-        camBounds.set(position.x - viewportWidth/2, position.y - viewportHeight/2, viewportWidth, viewportHeight);
-        return Intersector.overlaps(iceberg.getBounds(), camBounds);
+        return Intersector.overlaps(iceberg.getBounds(), getCamBounds());
     }
 
     public void setY(float y) {
         position.set(viewportWidth/2, y + viewportHeight/2, 0);
         update();
+    }
+
+    public Rectangle getCamBounds() {
+        return camBounds.set(position.x - viewportWidth/2, position.y - viewportHeight/2, viewportWidth, viewportHeight);
+    }
+
+    public void setYOffset(float YOffset) {
+        yOffset = YOffset;
+    }
+
+    public float getYOffset() {
+        return yOffset;
     }
 }

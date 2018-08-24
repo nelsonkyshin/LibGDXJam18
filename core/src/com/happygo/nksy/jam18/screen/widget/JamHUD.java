@@ -1,12 +1,10 @@
 package com.happygo.nksy.jam18.screen.widget;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -57,7 +55,7 @@ public class JamHUD {
             }
         });
         bonusLabel = new Label("", Assets.skin());
-        bonusLabel.setFontScale(0.8f);
+        bonusLabel.setFontScale(0.9f);
         bonusLabel.getColor().a = 0;
         bonusLabel.setAlignment(Align.center);
 
@@ -134,5 +132,9 @@ public class JamHUD {
         bonusLabel.setText("");
         bonusLabel.getColor().a = 0;
         bonusLabel.setColor(Main.darkerColor);
+        retry.getStyle().fontColor.set(Main.leadColor);
+        retry.getStyle().downFontColor.set(Main.darkerColor);
+        title.getStyle().fontColor.set(Main.leadColor);
+        title.getStyle().downFontColor.set(Main.darkerColor);
     }
 }

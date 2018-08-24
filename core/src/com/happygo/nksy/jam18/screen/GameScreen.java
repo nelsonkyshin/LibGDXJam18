@@ -72,7 +72,6 @@ public class GameScreen implements IScreen {
     }
 
     public void reset() {
-        Main.rerollColor();
         controller.reset();
         GameController.reset();
         hud.reset();

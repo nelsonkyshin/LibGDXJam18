@@ -3,12 +3,13 @@ package com.happygo.nksy.jam18;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.happygo.nksy.jam18.assets.Assets;
+import com.happygo.nksy.jam18.assets.JamPreferences;
 import com.happygo.nksy.jam18.screen.SplashScreen;
 import com.happygo.nksy.jam18.screen.camera.JamCamera;
 import com.happygo.nksy.jam18.screen.ScreenController;
@@ -25,10 +26,15 @@ public class Main extends ApplicationAdapter {
 	public static final Color darkerColor = new Color();
 	public static final Color lighterColor = new Color();
 	public static final Color waterColor = new Color();
+	public static IPlatformService service;
 
 	private static final float FRAME_RATE = 1/60f;
 
 	private SpriteBatch batch;
+
+	public Main(IPlatformService service) {
+		this.service = service;
+	}
 
 	@Override
 	public void create() {
@@ -47,6 +53,7 @@ public class Main extends ApplicationAdapter {
 		shapeRenderer.setColor(Color.WHITE);
 		batch = new SpriteBatch();
 		ScreenController.get().transitionTo(SplashScreen.class);
+		JamPreferences.load();
 	}
 
 	public static boolean isMobile() {
@@ -80,14 +87,17 @@ public class Main extends ApplicationAdapter {
 		ScreenController.get().dispose();
 	}
 
-	public static void rerollColor() {
-		leadColor.set(MathUtils.random(0.3f, 0.9f), MathUtils.random(0.3f, 0.9f), MathUtils.random(0.3f, 0.7f), 1);
-		waterColor.set(leadColor).mul(MathUtils.random(1.08f, 1.12f));
-		waterColor.b += MathUtils.random(0.15f, 0.3f);
-		waterColor.a = 1;
-		lighterColor.set(leadColor).mul(MathUtils.random(1.3f, 1.5f));
-		lighterColor.a = 1;
-		darkerColor.set(leadColor).mul(MathUtils.random(0.5f, 0.7f));
-		darkerColor.a = 1;
+	public static void savePrefs(Preferences prefs) {
+		prefs.putString(JamPreferences.COLOR_LEAD, Main.leadColor.toString());
+		prefs.putString(JamPreferences.COLOR_WATER, Main.waterColor.toString());
+		prefs.putString(JamPreferences.COLOR_LIGHTER, Main.lighterColor.toString());
+		prefs.putString(JamPreferences.COLOR_DARKER, Main.darkerColor.toString());
+	}
+
+	public static void loadPrefs(Preferences prefs) {
+		Main.leadColor.set(Color.valueOf(prefs.getString(JamPreferences.COLOR_LEAD)));
+		Main.waterColor.set(Color.valueOf(prefs.getString(JamPreferences.COLOR_WATER)));
+		Main.lighterColor.set(Color.valueOf(prefs.getString(JamPreferences.COLOR_LIGHTER)));
+		Main.darkerColor.set(Color.valueOf(prefs.getString(JamPreferences.COLOR_DARKER)));
 	}
 }

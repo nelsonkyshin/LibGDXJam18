@@ -15,12 +15,13 @@ public class CollisionController {
 
     public void updateJustLanded() {
         int numberConsumed = 0;
+        int hopperBonus = 0;
         for (Iceberg iceberg : entityController.icebergs) {
             if (iceberg.getBounds().contains(entityController.player.getMid())) {
                 if (iceberg.setConsumed()) {
                     GameController.platforms += iceberg.getnConsumed();
                     if (iceberg.getnConsumed() > 1) {
-                        GameController.bonusQueue.add("Hopper +" + iceberg.getnConsumed());
+                        hopperBonus += iceberg.getnConsumed() - 1;
                     }
                     numberConsumed++;
                 }
@@ -32,6 +33,9 @@ public class CollisionController {
         if (numberConsumed > 1) {
             GameController.platforms += numberConsumed - 1;
             GameController.bonusQueue.add("Multi-Platform +" + (numberConsumed-1));
+        }
+        if (hopperBonus > 0) {
+            GameController.bonusQueue.add("Hopper +" + hopperBonus);
         }
     }
 
