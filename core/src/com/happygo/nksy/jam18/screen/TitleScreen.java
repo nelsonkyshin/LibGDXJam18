@@ -8,9 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Scaling;
@@ -18,13 +18,12 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.happygo.nksy.jam18.AudioManager;
 import com.happygo.nksy.jam18.Main;
 import com.happygo.nksy.jam18.assets.Assets;
-import com.happygo.nksy.jam18.screen.widget.ChangeColorButton;
 
 public class TitleScreen implements IScreen {
 
     private final Stage stage;
     private final InputMultiplexer inputMultiplexer;
-    private final ChangeColorButton changeColor;
+    private final TextButton colorScreen;
     private final Label gameTitle;
     private final Label pressAny;
     private final Vector2 temp;
@@ -33,7 +32,14 @@ public class TitleScreen implements IScreen {
         stage = new Stage(new ScalingViewport(Scaling.stretch, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT *10));
         inputMultiplexer = new InputMultiplexer(stage);
         temp = new Vector2();
-        changeColor = new ChangeColorButton();
+        colorScreen = new TextButton("Colors", Assets.skin());
+        colorScreen.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                ScreenController.get().transitionTo(ColorScreen.class);
+            }
+        });
 
         gameTitle = new Label("ICEBERGS", Assets.skin());
         gameTitle.setFontScale(2);
@@ -46,18 +52,20 @@ public class TitleScreen implements IScreen {
         table.setFillParent(true);
 
         table.add(gameTitle).center().expand();
-//        table.row().padTop(Main.REFERENCE_WIDTH /2);
-//        table.add(changeColor);
         table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(pressAny).center();
         table.row().padTop(Main.REFERENCE_WIDTH /2).padBottom(20);
+        table.add(colorScreen);
+        table.row().padTop(Main.REFERENCE_WIDTH /2);
 
         stage.addActor(table);
         stage.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                ScreenController.get().transitionTo(GameScreen.class);
+                if (!event.isHandled()) {
+                    ScreenController.get().transitionTo(GameScreen.class);
+                }
             }
         });
     }

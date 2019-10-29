@@ -58,6 +58,9 @@ public class ScreenController {
         else if (TitleScreen.class.equals(clazz)) {
             return new TitleScreen();
         }
+        else if (ColorScreen.class.equals(clazz)) {
+            return new ColorScreen();
+        }
         return null;
     }
 
