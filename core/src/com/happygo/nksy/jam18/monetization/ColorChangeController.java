@@ -27,9 +27,6 @@ public class ColorChangeController {
     }
 
     public static void rerollColor() {
-        if (!canChange()) {
-            return;
-        }
         Main.leadColor.set(MathUtils.random(0.4f, 0.9f), MathUtils.random(0.4f, 0.9f), MathUtils.random(0.4f, 0.7f), 1);
         Main.waterColor.set(Main.leadColor).mul(MathUtils.random(1.08f, 1.12f));
         Main.waterColor.b += MathUtils.random(0.15f, 0.3f);

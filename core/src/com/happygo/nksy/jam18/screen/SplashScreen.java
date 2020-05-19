@@ -27,23 +27,21 @@ public class SplashScreen implements IScreen {
         inputMultiplexer = new InputMultiplexer(stage);
 
         Label presents = new Label("[BLACK]proudly presents", Assets.skin());
-        Label gameJam = new Label("[BLACK]Game Jam 2018", Assets.skin());
         Image libgdx = new Image(Assets.texture(Assets.LIBGDX));
         libgdx.setScaling(Scaling.fit);
-        Image hgs = new Image(Assets.texture(Assets.HGS));
-        hgs.setScaling(Scaling.fit);
+        Image happyGoLogo = new Image(Assets.texture(Assets.HGS));
+        happyGoLogo.setScaling(Scaling.fit);
 
         Table table = new Table();
         table.padBottom(Main.REFERENCE_WIDTH).padTop(Main.REFERENCE_WIDTH);
         table.setDebug(Main.DEBUG);
         table.setFillParent(true);
-        table.add(hgs).center().bottom().size(Main.REFERENCE_WIDTH *5, Main.REFERENCE_WIDTH *5).expand();
+        table.add(happyGoLogo).center().bottom().size(Main.REFERENCE_WIDTH *8, Main.REFERENCE_WIDTH *8).expand();
         table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(presents);
         table.row().expand();
         table.add(libgdx).bottom().size(Main.REFERENCE_WIDTH, Main.REFERENCE_WIDTH /4);
         table.row().padTop(Main.REFERENCE_WIDTH /4);
-        table.add(gameJam);
 
         stage.addActor(table);
         stage.addListener(new ClickListener() {

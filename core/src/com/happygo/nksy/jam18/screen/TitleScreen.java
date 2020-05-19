@@ -18,12 +18,13 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.happygo.nksy.jam18.AudioManager;
 import com.happygo.nksy.jam18.Main;
 import com.happygo.nksy.jam18.assets.Assets;
+import com.happygo.nksy.jam18.monetization.ColorChangeController;
 
 public class TitleScreen implements IScreen {
 
     private final Stage stage;
     private final InputMultiplexer inputMultiplexer;
-    private final TextButton colorScreen;
+    private final TextButton colorButton;
     private final Label gameTitle;
     private final Label pressAny;
     private final Vector2 temp;
@@ -32,12 +33,12 @@ public class TitleScreen implements IScreen {
         stage = new Stage(new ScalingViewport(Scaling.stretch, Main.REFERENCE_WIDTH *10, Main.REFERENCE_HEIGHT *10));
         inputMultiplexer = new InputMultiplexer(stage);
         temp = new Vector2();
-        colorScreen = new TextButton("Colors", Assets.skin());
-        colorScreen.addListener(new ClickListener() {
+        colorButton = new TextButton("Change Colors", Assets.skin());
+        colorButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                ScreenController.get().transitionTo(ColorScreen.class);
+                ColorChangeController.rerollColor();
             }
         });
 
@@ -55,7 +56,7 @@ public class TitleScreen implements IScreen {
         table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(pressAny).center();
         table.row().padTop(Main.REFERENCE_WIDTH /2).padBottom(20);
-        table.add(colorScreen);
+        table.add(colorButton);
         table.row().padTop(Main.REFERENCE_WIDTH /2);
 
         stage.addActor(table);

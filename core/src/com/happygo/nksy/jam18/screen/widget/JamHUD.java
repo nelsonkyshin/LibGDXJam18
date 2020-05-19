@@ -80,11 +80,6 @@ public class JamHUD {
         table.row().padTop(5).width(Main.REFERENCE_WIDTH *5);
         table.add(title);
 
-//        Container<Label> bonusContainer = new Container<Label>(bonusLabel);
-//        bonusContainer.pad(5);
-//        bonusContainer.setActor(bonusLabel);
-//        bonusContainer.align(Align.bottomRight);
-
         Stack stack = new Stack();
         stack.setDebug(Main.DEBUG);
         stack.setFillParent(true);
@@ -95,9 +90,9 @@ public class JamHUD {
 
     public void update() {
         stage.act();
-        tryAgain.setVisible(GameController.isGameOver() ? true : false);
-        title.setVisible(GameController.isGameOver() ? true : false);
-        retry.setVisible(GameController.isGameOver() ? true : false);
+        tryAgain.setVisible(GameController.isGameOver());
+        title.setVisible(GameController.isGameOver());
+        retry.setVisible(GameController.isGameOver());
         retry.setTouchable(GameController.isGameOver() ? Touchable.enabled : Touchable.disabled);
         if (GameController.bonusQueue.size > 0) {
             builder.setLength(0);
