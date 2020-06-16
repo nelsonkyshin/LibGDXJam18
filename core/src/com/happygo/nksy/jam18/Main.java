@@ -54,6 +54,7 @@ public class Main extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		ScreenController.get().transitionTo(SplashScreen.class);
 		JamPreferences.load();
+		service.SignInGoogleGames();
 	}
 
 	public static boolean isMobile() {
