@@ -28,11 +28,11 @@ public class ScoreWidget extends Group {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (previousScore != GameController.platforms) {
+        if (previousScore != GameController.platformScore) {
             clearActions();
-            label.setText(String.valueOf(GameController.platforms));
+            label.setText(String.valueOf(GameController.platformScore));
             addAction(Actions.sequence(Actions.scaleBy(1.05f, 1.05f), Actions.scaleTo(1, 1, SCALE_DURATION)));
-            previousScore = GameController.platforms;
+            previousScore = GameController.platformScore;
         }
     }
 

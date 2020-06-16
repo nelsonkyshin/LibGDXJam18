@@ -12,12 +12,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.auth.api.signin.SignInAccount;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 public class AndroidLauncher extends AndroidApplication implements IPlatformService {
 
-    public static GoogleSignInAccount SignInAccount;
-    private static int SIGN_IN_RESULT_CODE = 69;
+    public static GoogleSignInAccount Account;
+	private static int SIGN_IN_RESULT_CODE = 69;
+	private static int LEADERBOARD_RESULT_CODE = 6996;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -28,18 +30,47 @@ public class AndroidLauncher extends AndroidApplication implements IPlatformServ
 
 	@Override
 	public void SignInGoogleGames() {
-	    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null)
-            return;
+	    Account = GoogleSignIn.getLastSignedInAccount(this);
+		if (IsSignedIn())
+			return;
 
         // otherwise must sign in manually
         GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
-                .requestIdToken("989109665227-juk034devss96o9ol0b7k4vk9dontbe7.apps.googleusercontent.com")
 				.build();
         GoogleSignInClient signInClient = GoogleSignIn.getClient(this, options);
         Intent intent = signInClient.getSignInIntent();
         startActivityForResult(intent, SIGN_IN_RESULT_CODE);
 	}
+
+	private boolean IsSignedIn() {
+		return Account != null;
+	}
+
+	@Override
+	public void ShowLeaderboard() {
+		if (!IsSignedIn()) {
+			SignInGoogleGames();
+			return;
+		}
+		Games.getLeaderboardsClient(this, Account)
+			.getLeaderboardIntent(getString(R.string.leaderboard_best_iceberg_jumper))
+			.addOnSuccessListener(new OnSuccessListener<Intent>() {
+				@Override
+				public void onSuccess(Intent intent) {
+					startActivityForResult(intent, LEADERBOARD_RESULT_CODE);
+				}
+			});
+	}
+
+    @Override
+    public void SubmitScore(int score) {
+	    if (!IsSignedIn()) {
+	        return;
+        }
+
+        Games.getLeaderboardsClient(this, Account)
+			.submitScore(getString(R.string.leaderboard_best_iceberg_jumper), score);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -47,7 +78,7 @@ public class AndroidLauncher extends AndroidApplication implements IPlatformServ
         if (requestCode == SIGN_IN_RESULT_CODE) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()){
-                SignInAccount = result.getSignInAccount();
+                Account = result.getSignInAccount();
             }
             else {
                 System.out.println(result.getStatus().getStatusMessage());

@@ -8,7 +8,7 @@ public class GameController {
     private static float timeAlive;
     private static boolean gameOver;
     private static boolean justLanded;
-    public static int platforms;
+    public static int platformScore;
     public static Array<String> bonusQueue = new Array<String>();
 
     public static boolean isGameOver() {
@@ -19,7 +19,7 @@ public class GameController {
         timeAlive = 0;
         gameOver = false;
         justLanded = false;
-        platforms = 0;
+        platformScore = 0;
         bonusQueue.clear();
     }
 
@@ -32,11 +32,12 @@ public class GameController {
     }
 
     public static float getDifficultyMultiplier() {
-        return MathUtils.clamp(1+platforms/5f, 1f, 2f);
+        return MathUtils.clamp(1+ platformScore /5f, 1f, 2f);
     }
 
     public static void setGameOver() {
         gameOver = true;
+        Main.service.SubmitScore(platformScore);
     }
 
     public static void setJustLanded(boolean landed) {

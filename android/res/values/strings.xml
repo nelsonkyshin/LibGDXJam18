@@ -5,10 +5,4 @@ Save this file as res/values/games-ids.xml in your project.
 -->
 <resources>
     <string name="app_name">Icebergs</string>
-    <!-- app_id -->
-    <string name="app_id" translatable="false">989109665227</string>
-    <!-- package_name -->
-    <string name="package_name" translatable="false">com.happygo.nksy.jam18</string>
-    <!-- leaderboard Best Iceberg Jumper -->
-    <string name="leaderboard_best_iceberg_jumper" translatable="false">CgkIy_ue3OQcEAIQAA</string>
 </resources>

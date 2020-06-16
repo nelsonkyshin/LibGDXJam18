@@ -73,7 +73,7 @@ public class Iceberg extends AbstractEntity implements Pool.Poolable {
 
     @Override
     public void reset() {
-        timeToDisappear = MathUtils.random(5, 15)/ GameController.getDifficultyMultiplier();
+        timeToDisappear = MathUtils.random(8, 15)/ GameController.getDifficultyMultiplier();
         durationRemaining = timeToDisappear;
         setOriginalWidth(MathUtils.random(300f, 500f));
         position.set(MathUtils.random(-0.5f, 0.5f) * JamCamera.get().viewportWidth, 500);

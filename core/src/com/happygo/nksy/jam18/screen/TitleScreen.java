@@ -27,6 +27,7 @@ public class TitleScreen implements IScreen {
     private final TextButton colorButton;
     private final Label gameTitle;
     private final Label pressAny;
+    private final Label leaderboard;
     private final Vector2 temp;
 
     public TitleScreen() {
@@ -46,6 +47,14 @@ public class TitleScreen implements IScreen {
         gameTitle.setFontScale(2);
         gameTitle.setAlignment(Align.center);
         pressAny = new Label(Main.isMobile() ? "Tap to begin" : "Press any key", Assets.skin());
+        leaderboard = new Label("Leaderboard", Assets.skin());
+        leaderboard.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                super.clicked(event, x, y);
+                Main.service.ShowLeaderboard();
+            }
+        });
 
         Table table = new Table();
         table.padBottom(Main.REFERENCE_HEIGHT).padTop(Main.REFERENCE_HEIGHT);
@@ -55,6 +64,8 @@ public class TitleScreen implements IScreen {
         table.add(gameTitle).center().expand();
         table.row().padTop(Main.REFERENCE_WIDTH /2);
         table.add(pressAny).center();
+        table.row().padTop(Main.REFERENCE_WIDTH /2);
+        table.add(leaderboard).center();
         table.row().padTop(Main.REFERENCE_WIDTH /2).padBottom(20);
         table.add(colorButton);
         table.row().padTop(Main.REFERENCE_WIDTH /2);
@@ -88,6 +99,7 @@ public class TitleScreen implements IScreen {
         gameTitle.setColor(Main.darkerColor);
         pressAny.setColor(Main.darkerColor);
         pressAny.clearActions();
+        leaderboard.setColor(Main.darkerColor);
         pressAny.addAction(Actions.repeat(900000, Actions.sequence(Actions.fadeOut(0.5f), Actions.fadeIn(0.5f))));
     }
 
